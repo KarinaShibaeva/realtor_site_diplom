@@ -1,0 +1,135 @@
+{% extends "root.html" %}
+{% block content %}
+
+<style>
+
+.carousel-inner{
+  height: 600px !important;
+  margin: 0 auto;
+}
+.carousel-inner img {
+  height: 700px !important;
+}
+h5{
+    font-size: 58px;
+}
+
+.card-img-overlay{
+ height: 600px !important;
+ margin: 0 auto;
+}
+.card {
+    transition: 1s; /* Время эффекта */
+    width: 100%;
+    height: 27vw;
+    object-fit: cover;
+   }
+.card:hover {
+    transform: scale(1.1); /* Увеличиваем масштаб */
+   }
+
+
+</style>
+<div class="w-auto d-flex flex-column justify-content-center">
+<div id="carouselExample" class="carousel slide">
+  <div class="carousel-inner">
+    <div class="carousel-item active">
+      <img src="/media/6.jpg" class="d-block w-100" alt="..." style="filter: brightness(40%)">
+      <div class="carousel-caption position-absolute bottom-50">
+        <h5>РА "Новые горизонты"</h5>
+        <p class="fs-3">Осуществляет все операции с недвижимостью более 20 лет</p>
+      </div>
+    </div>
+    <div class="carousel-item">
+      <img src="/media/7.jpg" class="d-block w-100" alt="..." style="filter: brightness(40%)">
+      <div class="carousel-caption position-absolute bottom-50">
+        <h5>РА "Новые горизонты"</h5>
+        <p class="fs-3">Осуществляет все операции с недвижимостью более 20 лет</p>
+      </div>
+    </div>
+    <div class="carousel-item">
+      <img src="/media/8.jpg" class="d-block w-100" alt="..." style="filter: brightness(40%)">
+      <div class="carousel-caption position-absolute bottom-50">
+        <h5>РА "Новые горизонты"</h5>
+        <p class="fs-3">Осуществляет все операции с недвижимостью более 20 лет</p>
+      </div>
+    </div>
+  </div>
+  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Previous</span>
+  </button>
+  <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Next</span>
+  </button>
+</div>
+<div class="gallery-inner container py-lg-0 py-3 mt-5 d-flex justify-content-center">
+      <div class="row stats-con pb-lg-3 d-flex justify-content-beetwen">
+        <div class="col-lg-4 col-6">
+            {% autoescape off %}
+          <p class="counter" style="color: #1A5686; font-size: 60px;">{{ years_working }}</p>
+            {% endautoescape %}
+          <h4>Лет на рынке</h4>
+        </div>
+        <div class="col-lg-4 col-6">
+          <p class="counter" style="color: #1A5686; font-size: 60px;">1698</p>
+          <h4>Сделок с недвижимостью</h4>
+        </div>
+        <div class="col-lg-4 col-6">
+          <p class="counter" style="color: #1A5686; font-size: 60px;">{{ total_applications }}</p>
+          <h4>Обращений из разных городов</h4>
+        </div>
+    </div>
+</div>
+
+<div class="w-100 mt-5 d-flex justify-content-around" style="background-color: #F0F9F6; height: 40vw;">
+<div class="d-flex flex-column align-items-center justify-content-center w-100">
+    <h3 class="text-center fw-bold">Услуги</h3>
+<div class="mt-5 d-flex justify-content-around w-100">
+<a class="nav-link text-dark" href="{% url 'flats:list' %}">
+<div class="card border border-info-subtle shadow-sm p-1 mb-3 bg-body-tertiary rounded" style="width: 18rem;">
+  <img src="/media/10.jpg" class="card-img-top" alt="...">
+  <div class="card-body ">
+    <h3 class="card-text">Покупка недвижимости</h3>
+    <p style="font-size: 1rem;">Быстро, понятно, без "подводных камней"</p>
+  </div>
+</div>
+</a>
+<a class="nav-link text-dark" href="{% url 'flats:sale_two' %}">
+<div class="card border border-info-subtle shadow-sm p-1 mb-3 bg-body-tertiary rounded" style="width: 18rem;">
+  <img src="/media/12.jpeg" class="card-img-top" alt="...">
+  <div class="card-body">
+    <h3 class="card-text">Вторичный рынок</h3>
+    <p style="font-size: 1rem;">Быстро и выгодно продать квартиру</p>
+  </div>
+</div>
+</a>
+<a class="nav-link text-dark" href="{% url 'sale:sale' %}">
+<div class="card border border-info-subtle shadow-sm p-1 mb-3 bg-body-tertiary rounded" style="width: 18rem;">
+  <img src="/media/11.jpg" class="card-img-top" alt="...">
+  <div class="card-body">
+    <h3 class="card-text">Новострой</h3>
+    <p style="font-size: 1rem;">Выбираем квартиру в новостройке</p>
+  </div>
+</div>
+</a>
+<a class="nav-link text-dark text-decoration-none" href="{% url 'flats:sell' %}">
+<div class="card border border-info-subtle shadow-sm p-1 mb-3 bg-body-tertiary rounded" style="width: 18rem;">
+  <img src="/media/1901.png" class="card-img-top" alt="...">
+  <div class="card-body">
+    <h3 class="card-text">Продать квартиру</h3>
+    <p style="font-size: 1rem;">Поможем продать квартиру или комнату по выгодной цене</p>
+  </div>
+</div>
+</a>
+</div>
+</div>
+</div>
+<div class="mt-5 d-flex flex-column justyfi-content-center align-items-center" style="height: 27vw;">
+    <h4 class="text-center mt-5" style="color: #1A5686; font-weight: 700;">О НАШЕЙ КОМПАНИИ</h4>
+    <h1 class="text-center">15 лет на рынке недвижимости</h1>
+    <p class="text-center w-50 mt-2 fs-5">Работаем на рынке недвижимости с 2008 года<br> Уже 15 лет наша компания является лидером в области продажи и аренды недвижимости в Санкт-Петербурге</p>
+    <a href="{% url 'info:about'%}" class="btn mt-1 w-25" style="background-color: #1A5686; color: #ffffff;">Подробнее</a>
+</div>
+{% endblock %}

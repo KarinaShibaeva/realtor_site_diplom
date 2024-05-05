@@ -1,0 +1,127 @@
+{% extends "root.html" %}
+{% load humanize %}
+{% block content %}
+{% for object in object_list %}
+<style>
+.myfield{
+            border:1px solid #ccc; 
+            border-radius:5px;
+            height:50px;
+            width:400px;
+            margin: 10px 10px 10px 0;
+}
+.card {
+    transition: 1s; /* Время эффекта */
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+   }
+.card:hover {
+    transform: scale(1.1); /* Увеличиваем масштаб */
+   }
+</style>
+<div style="margin-top: 100px;">
+    <h1 class="text-center fw-bold">{{ pk.object_name }}</h1>
+</div>
+<div class="mt-5 d-flex justify-content-evenly">
+    <div class="card mb-3" style="width: 18rem; background-color: #fffff;">
+      <div class="card-body">
+        <h5 class="card-title text-dark text-center fw-bold">Цены от {{ pk.price|floatformat:0|intcomma }} ₽</h5>
+        <p class="card-text text-dark text-center">Цены в {{ pk.object_name }} начинаются от {{ pk.price|floatformat:0|intcomma }} ₽</p>
+      </div>
+    </div>
+    <div class="card mb-3" style="width: 18rem; background-color: #fffff;">
+      <div class="card-body">
+        <h5 class="card-title text-dark text-center fw-bold">Район {{ object.location }}</h5>
+        <p class="card-text text-dark text-center">ЖК находится в районе {{ object.location }}</p>
+      </div>
+    </div>
+    <div class="card mb-3" style="width: 18rem; background-color: #fffff;">
+      <div class="card-body">
+        <h5 class="card-title text-dark text-center fw-bold">Ипотека</h5>
+        <p class="card-text text-dark text-center">Можно оформить ипотеку от 0,1% до 5,7%</p>
+      </div>
+    </div>
+    <div class="card mb-3" style="width: 18rem; background-color: #fffff;">
+      <div class="card-body">
+        <h5 class="card-title text-dark text-center fw-bold">Сдача объекта</h5>
+        <p class="card-text text-dark text-center">2 квартал 2025г.</p>
+      </div>
+    </div>
+</div>
+<div class="mt-5 d-flex flex-column align-items-center justify-content-center w-100" style="background-color: #F0F9F6; height: auto;">
+<h3 class="text-center mt-4 fw-bold">Описание</h3>
+    <div class="d-flex ms-3 me-3 mt-2 align-items-center" style="width: 60rem;">
+        <p class=" me-5">{{ object.text|linebreaksbr }}</p>
+        <img src="{{ pk.img.url }}" alt="" width="500px" height="300px">
+    </div>
+</div>
+<div class="d-flex mt-4 flex-column align-items-center justify-content-center w-100" style="height: auto;">
+<h3 class="text-center fw-bold">Квартиры в {{ pk.object_name }}</h3>
+<div class="d-flex flex-wrap w-100 justify-content-around mt-5">
+{% for category in category_list.all %}
+<div class="d-flex flex-row">
+    <div class="content d-flex justify-content-evenly">
+        <div class="card" style="width: 18rem;">
+            <img src="{{ category.img.url }}" class="card-img-top" alt="...">
+            <div class="card-body">
+                <h3 class="card-text">{{ category.name }}</h3>
+                <p class="fs-5">От {{ category.price|floatformat:0|intcomma }} ₽</p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endfor %}
+</div>
+{% endfor %}
+</div>
+<div class="d-flex mt-5 flex-column align-items-center justify-content-center w-100" style="background-color: #F0F9F6; height: 35rem;">
+    <h3 class="text-center fw-bold">Остались вопросы или нужна консультация?</h3>
+    <p class="text-center">Мы знаем, как быстро и без рисков купить квартиру в Санкт-Петербурге и Ленинградской области. Это возможно благодаря большому опыту работы в сфере недвижимости. В нашей базе большой выбор квартир, мы подберем для Вас идеальный вариант на выгодных условиях.</p>
+<div class="d-flex justify-content-around w-100 align-items-center">
+<div class="d-flex flex-column">
+    <div class="d-flex flex-column align-items-start">
+        <h3 class="text-center">Email</h3>
+        <p>newgorinfo@mail.ru</p>
+    </div>
+     <div class="d-flex flex-column align-items-start">
+         <h3 class="text-center">Адрес</h3>
+         <p>Санкт-Петербург, ул.1-й Верхний переулок, д.3, офис 205</p>
+     </div>
+      <div class="d-flex flex-column align-items-start">
+          <h3 class="text-center">Телефон</h3>
+          <p>+7(999)999-99-99</p>
+      </div>
+</div>
+<div class="d-flex flex-column">
+{% if messages %}
+<ul class="messages">
+{% for message in messages %}
+<li  {% if message.tags %} class=" {{ message.tags }} " {% endif %}> {{ message }} </li>
+    {% endfor %}
+</ul>
+{% endif %}
+<form method="POST" novalidate>
+    {% csrf_token %}
+    
+        {% for field in form %}
+        <div class="form-group d-flex justify-content-between align-items-center" style="width: 25rem;">
+        
+            <div>{{field}}</div>
+            {% if field.errors%}
+            {% for error in field.errors %}
+            <div class="alert alert-danger">
+                {{error}}
+            </div>
+            {% endfor %}
+            {% endif %}
+        </div>
+        {% endfor %}
+        <input type="submit" class="btn btn-secondary w-100" style="background-color: #1A5686;" value="Отправить" >
+        </div>
+        
+    </form>
+    </div>
+</div>
+</div>
+{% endblock %}
