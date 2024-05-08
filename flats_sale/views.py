@@ -1,5 +1,5 @@
 from django.shortcuts import render, get_object_or_404
-from flats_sale.models import Flat, Category, Object
+from flats_sale.models import Flat, Category, Object, Floor
 from django.views.generic import ListView
 from flats_sale.forms import FlatSearchForm
 from comment.forms import CommentForm
@@ -50,9 +50,14 @@ class SaleListView(ListView):
 
 def sale_id_view(request, pk):
     object_list = Object.objects.filter(pk=pk)
-    category_list = Category.objects.filter(object_name=pk)
-    pk = get_object_or_404(Flat, pk=pk)
+
+    # Получаем список категорий, связанных с этим объектом
+    category_list = Category.objects.filter(object_name__pk=pk)
+
+    # Получаем все этажи для всех категорий данного объекта и категорий
+    floors = Floor.objects.filter(apartment__in=category_list)
     #comments = pk.comments.all()
+    pk = get_object_or_404(Flat, pk=pk)
     if request.method=="POST": 
         form = CommentForm(request.POST, request.FILES)
         if form.is_valid(): 
@@ -69,7 +74,7 @@ def sale_id_view(request, pk):
     else:
         form = CommentForm()
 
-    context = {"pk": pk,'page':'flats', #'comments_list':comments,
-               'form':form,'category_list': category_list,
-               'object_list':object_list}
+    context = {"pk": pk, 'page': 'flats',  # 'comments_list':comments,
+               'form': form, 'category_list': category_list,
+               'object_list': object_list, 'floors': floors}
     return render(request, "flats_sale/flats_detail.html", context)

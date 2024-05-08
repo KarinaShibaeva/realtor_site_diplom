@@ -1,5 +1,6 @@
 from django.contrib import admin
-from flats_sale.models import Flat, Object, Category
+from flats_sale.models import Flat, Object, Category, Floor
+
 
 @admin.register(Flat)
 class FlatAdmin(admin.ModelAdmin):
@@ -16,3 +17,7 @@ class ObjectAdmin(admin.ModelAdmin):
 class CategoryAdmin(admin.ModelAdmin):
     list_display = ("name", "object_name")
     search_fields = ("name",)
+
+@admin.register(Floor)
+class FloorAdmin(admin.ModelAdmin):
+    list_display = ('number',)

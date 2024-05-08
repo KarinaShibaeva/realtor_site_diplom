@@ -12,19 +12,24 @@ class Object(models.Model):
 
     def __str__(self):
        return self.name
-    
+
 class Category(models.Model):
     name=models.CharField(max_length=128, verbose_name="Название")
     object_name=models.ForeignKey(Object, on_delete=models.CASCADE, verbose_name="Объект")
     price=models.PositiveIntegerField(verbose_name="Цена")
     img=models.ImageField(upload_to="%Y/%m/%d/", verbose_name="Изображение")
-    
+
     class Meta:
        verbose_name = 'Категория'
        verbose_name_plural = 'Категории'
 
     def __str__(self):
-       return self.name
+        return f'{self.name} - {self.object_name}'
+
+
+class Floor(models.Model):
+    number = models.IntegerField()
+    apartment = models.ForeignKey(Category, on_delete=models.CASCADE)
     
 class Flat(models.Model):
     object_name=models.ForeignKey(Object, on_delete=models.CASCADE, verbose_name="Объект")
