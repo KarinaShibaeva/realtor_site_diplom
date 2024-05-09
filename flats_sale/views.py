@@ -52,10 +52,8 @@ def sale_id_view(request, pk):
     object_list = Object.objects.filter(pk=pk)
 
     # Получаем список категорий, связанных с этим объектом
-    category_list = Category.objects.filter(object_name__pk=pk)
+    category_list = Category.objects.filter(object_name=pk)
 
-    # Получаем все этажи для всех категорий данного объекта и категорий
-    floors = Floor.objects.filter(apartment__in=category_list)
     #comments = pk.comments.all()
     pk = get_object_or_404(Flat, pk=pk)
     if request.method=="POST": 
@@ -76,5 +74,5 @@ def sale_id_view(request, pk):
 
     context = {"pk": pk, 'page': 'flats',  # 'comments_list':comments,
                'form': form, 'category_list': category_list,
-               'object_list': object_list, 'floors': floors}
+               'object_list': object_list}
     return render(request, "flats_sale/flats_detail.html", context)
