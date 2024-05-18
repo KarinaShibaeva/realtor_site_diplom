@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'siteinfo',
     'comment',
     'staff',
+
 ]
 
 MIDDLEWARE = [

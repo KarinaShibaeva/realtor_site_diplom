@@ -67,9 +67,13 @@
             <div class="card-body">
                 <h3 class="card-text">{{ category.name }}</h3>
                 <p class="fs-5">От {{ category.price|floatformat:0|intcomma }} ₽</p>
+                <p class="fs-5">Этажи:
                 {% for floor in category.floors.all %}
-                <p class="fs-5">{{ floor.number }}</p>
-                    {% endfor %}
+                    {{ floor.number }}
+                    {% if not forloop.last %},{% endif %}
+                {% endfor %}
+                </p>
+
             </div>
         </div>
     </div>

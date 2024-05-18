@@ -27,7 +27,60 @@ h5{
 .card:hover {
     transform: scale(1.1); /* Увеличиваем масштаб */
    }
+.center {
+  display: flex;
+  /*height: 100vh;*/
+  align-items: center;
+  justify-content: center;
+}
 
+.article-card {
+  width: 350px;
+  height: 220px;
+  border-radius: 12px;
+  overflow: hidden;
+  position: relative;
+  font-family: Arial, Helvetica, sans-serif;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+  transition: all 300ms;
+}
+
+.article-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+}
+
+.article-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.article-card .content {
+  box-sizing: border-box;
+  width: 100%;
+  position: absolute;
+  padding: 30px 20px 20px 20px;
+  height: auto;
+  bottom: 0;
+  background: linear-gradient(transparent, rgba(0, 0, 0, 0.6));
+}
+
+.article-card .date,
+.article-card .title {
+  margin: 0;
+}
+
+.article-card .date {
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.9);
+  margin-bottom: 4px;
+}
+
+.article-card .title {
+  font-size: 17px;
+  color: #fff;
+}
 
 </style>
 <div class="w-auto d-flex flex-column justify-content-center">
@@ -83,43 +136,29 @@ h5{
     </div>
 </div>
 
-<div class="w-100 mt-5 d-flex justify-content-around" style="background-color: #F0F9F6; height: 40vw;">
+<div class="w-100 mt-5 d-flex justify-content-around" style="background-color: #F0F9F6; height: 30vw;">
 <div class="d-flex flex-column align-items-center justify-content-center w-100">
     <h3 class="text-center fw-bold">Услуги</h3>
-<div class="mt-5 d-flex justify-content-around w-100">
+<div class="mt-5 d-flex justify-content-evenly w-100">
 <a class="nav-link text-dark" href="{% url 'flats:list' %}">
-<div class="card border border-info-subtle shadow-sm p-1 mb-3 bg-body-tertiary rounded" style="width: 18rem;">
-  <img src="/media/10.jpg" class="card-img-top" alt="...">
-  <div class="card-body ">
-    <h3 class="card-text">Покупка недвижимости</h3>
-    <p style="font-size: 1rem;">Быстро, понятно, без "подводных камней"</p>
-  </div>
-</div>
-</a>
-<a class="nav-link text-dark" href="{% url 'flats:sale_two' %}">
-<div class="card border border-info-subtle shadow-sm p-1 mb-3 bg-body-tertiary rounded" style="width: 18rem;">
-  <img src="/media/12.jpeg" class="card-img-top" alt="...">
-  <div class="card-body">
-    <h3 class="card-text">Вторичный рынок</h3>
-    <p style="font-size: 1rem;">Быстро и выгодно продать квартиру</p>
-  </div>
-</div>
-</a>
-<a class="nav-link text-dark" href="{% url 'sale:sale' %}">
-<div class="card border border-info-subtle shadow-sm p-1 mb-3 bg-body-tertiary rounded" style="width: 18rem;">
-  <img src="/media/11.jpg" class="card-img-top" alt="...">
-  <div class="card-body">
-    <h3 class="card-text">Новострой</h3>
-    <p style="font-size: 1rem;">Выбираем квартиру в новостройке</p>
+<div class="center">
+  <div class="article-card">
+    <div class="content">
+      <p class="date">Быстро, понятно, без "подводных камней"</p>
+      <p class="title">Покупка недвижимости</p>
+    </div>
+    <img src="/media/10.jpg" alt="article-cover" />
   </div>
 </div>
 </a>
 <a class="nav-link text-dark text-decoration-none" href="{% url 'flats:sell' %}">
-<div class="card border border-info-subtle shadow-sm p-1 mb-3 bg-body-tertiary rounded" style="width: 18rem;">
-  <img src="/media/1901.png" class="card-img-top" alt="...">
-  <div class="card-body">
-    <h3 class="card-text">Продать квартиру</h3>
-    <p style="font-size: 1rem;">Поможем продать квартиру или комнату по выгодной цене</p>
+    <div class="center">
+  <div class="article-card">
+    <div class="content">
+      <p class="date">Поможем быстро и выгодно</p>
+      <p class="title">Продать недвижимость</p>
+    </div>
+    <img src="/media/1901.png" alt="article-cover" />
   </div>
 </div>
 </a>
@@ -128,8 +167,8 @@ h5{
 </div>
 <div class="mt-5 d-flex flex-column justyfi-content-center align-items-center" style="height: 27vw;">
     <h4 class="text-center mt-5" style="color: #1A5686; font-weight: 700;">О НАШЕЙ КОМПАНИИ</h4>
-    <h1 class="text-center">15 лет на рынке недвижимости</h1>
-    <p class="text-center w-50 mt-2 fs-5">Работаем на рынке недвижимости с 2008 года<br> Уже 15 лет наша компания является лидером в области продажи и аренды недвижимости в Санкт-Петербурге</p>
+    <h1 class="text-center">{{ years_working }} лет на рынке недвижимости</h1>
+    <p class="text-center w-50 mt-2 fs-5">Работаем на рынке недвижимости с 2004 года<br> Уже {{ years_working }} лет наша компания является лидером в области продажи и аренды недвижимости в Санкт-Петербурге</p>
     <a href="{% url 'info:about'%}" class="btn mt-1 w-25" style="background-color: #1A5686; color: #ffffff;">Подробнее</a>
 </div>
 <script src="//code.jivo.ru/widget/b0DsvZEPVu" async></script>

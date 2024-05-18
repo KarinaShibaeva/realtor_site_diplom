@@ -2,8 +2,10 @@
 {% block content %}
 <div class="mt-5 d-flex flex-column justyfi-content-center align-items-center">
     <h4 class="text-center mt-5" style="color: #1A5686; font-weight: 700;">О НАШЕЙ КОМПАНИИ</h4>
-    <h1 class="text-center">15 лет на рынке недвижимости</h1>
-    <p class="text-center w-50 mt-2 fs-5">Работаем на рынке недвижимости с 2008 года<br> Уже 15 лет наша компания является лидером в области продажи и аренды недвижимости в Санкт-Петербурге</p>
+    {% autoescape off %}
+    <h1 class="text-center">{{ years_working }} лет на рынке недвижимости</h1>
+    {% endautoescape %}
+    <p class="text-center w-50 mt-2 fs-5">Работаем на рынке недвижимости с 2048 года<br> Уже {{ years_working }} лет наша компания является лидером в области продажи и аренды недвижимости в Санкт-Петербурге</p>
 </div>
 <div class="mt-4" style="background-color: #F0F9F6;">
     <div class="w3l-content-6 py-5">
