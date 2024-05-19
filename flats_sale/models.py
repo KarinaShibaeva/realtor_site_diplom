@@ -43,3 +43,12 @@ class Flat(models.Model):
 
     def __unicode__(self):
         return self.object_name.name
+
+class Contract(models.Model):
+    number = models.CharField(max_length=128, verbose_name='Номер договора')
+    object = models.ForeignKey(Object, on_delete=models.CASCADE, verbose_name='Название объекта')
+
+    class Meta:
+        verbose_name = 'Договор'
+        verbose_name_plural = 'Договоры'
+
