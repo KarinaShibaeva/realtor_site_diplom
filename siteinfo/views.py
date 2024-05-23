@@ -36,3 +36,4 @@ def about_view(request):
     context = {"page": "about", "years_working": years_working, "total_applications": total_applications}
     return render(request, 'siteinfo/about.html', context)
 
+
