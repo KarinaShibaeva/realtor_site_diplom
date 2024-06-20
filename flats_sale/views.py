@@ -54,6 +54,7 @@ def sale_id_view(request, pk):
     # Получаем список категорий, связанных с этим объектом
     category_list = Category.objects.filter(object_name=pk)
 
+
     #comments = pk.comments.all()
     pk = get_object_or_404(Flat, pk=pk)
     if request.method=="POST": 
