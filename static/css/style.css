@@ -8,3 +8,7 @@ body {
 .container-fluid{
     width: 100%;
 }
+
+@media (min-width: 240px) and (max-width: 920px){
+
+}
