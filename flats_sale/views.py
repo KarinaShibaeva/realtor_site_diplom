@@ -16,37 +16,27 @@ class SaleListView(ListView):
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(object_list=object_list, **kwargs)
         context['object-count'] = self.model.objects.count()
-        paginator = Paginator(self.model.object_list, self.paginate_by)
-        try:
-            page = self.request.GET.get('page')
-        except:
-            page = 1
-           
-        try:
-            context[self.context_object_name] = paginator.page(page)
-        except:
-            context[self.context_object_name] = paginator.page(1)
-           
+        paginator = Paginator(self.get_queryset(), self.paginate_by)
+
+        page = self.request.GET.get('page', 1)
+        context[self.context_object_name] = paginator.get_page(page)
         context['object-count'] = self.model.objects.count()
         context['paginator'] = paginator
         return context
 
-    def get_context_data(self, *, object_list=None, **kwargs):
-        context = super().get_context_data(object_list=object_list, **kwargs)
-        context['form'] = FlatSearchForm()         
-        return context                          
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['form'] = FlatSearchForm()
+        return context
 
-    def get(self, request, *args, **kwargs):
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        search_query = self.request.GET.get('search')
 
-        form = FlatSearchForm(self.request.GET)
-        if form.is_valid():
-           cd = form.cleaned_data
-           flats = self.model.objects.filter(object_name__name__iexact=cd['search'])
-        else:
-            flats = self.model.objects.all()
+        if search_query:
+            queryset = queryset.filter(object_name__name__icontains=search_query)
 
-        return render(request, self.template_name, self.get_context_data(object_list=flats))
-    
+        return queryset
 
 def sale_id_view(request, pk):
     object_list = Object.objects.filter(pk=pk)
